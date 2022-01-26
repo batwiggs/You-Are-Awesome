@@ -11,6 +11,7 @@ import AVFoundation
 class ViewController: UIViewController {
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var playSoundSwitch: UISwitch!
     
     var imageNumber = -1
     var messageNumber = -1
@@ -48,7 +49,7 @@ class ViewController: UIViewController {
     
     @IBAction func messageButtonPressed(_ sender: UIButton) {
         let messages = ["Get help!",
-                        "Why?",
+                        "You aren't awesome!",
                         "U bad at this.",
                         "Huh?",
                         "You so not swifty",
@@ -62,7 +63,17 @@ class ViewController: UIViewController {
         
         soundNumber = nonRepeatingRandom(originalNumber: soundNumber, upperLimit: totalNumberOfSounds-1)
         print("*** The new sound number is \(soundNumber)")
+        if playSoundSwitch.isOn{
         playSound(name: "sound\(soundNumber)")
+
+        }
+        
+    }
+    
+    @IBAction func playSoundToggled(_ sender: UISwitch) {
+        if !sender.isOn && audioPlayer != nil { // if the .isOn is NOT true
+            audioPlayer.stop()  // stop playing
+        }
     }
     
 }
